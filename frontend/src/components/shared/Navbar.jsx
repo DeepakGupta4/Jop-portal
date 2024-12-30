@@ -3,9 +3,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { LogOut, User2 } from "lucide-react";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const [user, setuser] = useState(false)
+  // const user= false
+  const {user} = useSelector(store=>store.auth)
+  // const {user} = useSelector(store=>store.auth)
   return (
     <div>
       <div className="bg-white">
@@ -14,16 +18,16 @@ const Navbar = () => {
             Job<span className="text-red-600">Portal</span>
           </h1>
           <div className="flex items-center gap-12">
-            <ul className="flex font-medium items-center gap-5">
-              <li>Home</li>
-              <li>Jobs</li>
-              <li>Browse</li>
+            <ul className="flex font-bold items-center gap-5">
+              <Link to={"/"}><li>Home</li></Link>
+              <Link to={"/jobs"}><li>Jobs</li></Link>
+              <Link to={"/browse"}><li>Browse</li></Link>
             </ul>
             {
               !user ? (
                     <div className="flex items-center gap-2">
-                      <Button variant="outline">Login</Button>
-                      <Button className="bg-purple-600 hover:bg-purple-700">Signup</Button>
+                      <Link to="/login"><Button variant="outline">LogIn</Button></Link>
+                      <Link to="/signup"><Button className="bg-purple-700 hover:bg-purple-800">SignUp</Button></Link>
 
                     </div>
               ):(
@@ -47,11 +51,11 @@ const Navbar = () => {
                     
                       <div className="flex w-fit items-center gap-4 cursor-pointer">
                         <User2 />
-                      <button variant="link">View Profile</button>
+                      <Button variant="link"> <Link to="/profile">View Profile</Link></Button>
                       </div>
                       <div className="flex w-fit items-center gap-4 cursor-pointer">
                         <LogOut />
-                      <button variant="link">Logout</button>
+                      <Button variant="link">Logout</Button>
                       </div>
                      
                 </div>
